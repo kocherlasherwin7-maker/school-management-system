@@ -57,13 +57,19 @@ function navigateTo(page) {
     }
 
     // Update UI
-    document.getElementById('pageTitle').textContent = route.title;
-    document.getElementById('pageBreadcrumb').textContent = route.breadcrumb;
+    const titleEl = document.getElementById('pageTitle');
+    if (titleEl) titleEl.textContent = route.title;
+    
+    const breadcrumbEl = document.getElementById('pageBreadcrumb');
+    if (breadcrumbEl) breadcrumbEl.textContent = route.breadcrumb;
 
-    // Update navigation active state
-    document.querySelectorAll('.nav-item').forEach(item => {
-        item.classList.toggle('active', item.dataset.page === page);
-    });
+    // Update navigation active state (only if nav-items exist)
+    const navItems = document.querySelectorAll('.nav-item');
+    if (navItems.length > 0) {
+        navItems.forEach(item => {
+            item.classList.toggle('active', item.dataset.page === page);
+        });
+    }
 
     // Render page
     route.render();
@@ -71,22 +77,26 @@ function navigateTo(page) {
 
 // Sidebar navigation
 document.addEventListener('DOMContentLoaded', function() {
-    document.querySelectorAll('.nav-item').forEach(item => {
-        item.addEventListener('click', function(e) {
-            e.preventDefault();
-            const page = this.dataset.page;
-            if (page) navigateTo(page);
-            
-            // Close mobile sidebar
-            document.getElementById('sidebar').classList.remove('open');
+    const navItems = document.querySelectorAll('.nav-item');
+    if (navItems.length > 0) {
+        navItems.forEach(item => {
+            item.addEventListener('click', function(e) {
+                e.preventDefault();
+                const page = this.dataset.page;
+                if (page) navigateTo(page);
+                
+                // Close mobile sidebar
+                const sidebar = document.getElementById('sidebar');
+                if (sidebar) sidebar.classList.remove('open');
+            });
         });
-    });
+    }
 
     // Sidebar toggle
     const sidebarToggle = document.getElementById('sidebarToggle');
     const sidebar = document.getElementById('sidebar');
     
-    if (sidebarToggle) {
+    if (sidebarToggle && sidebar) {
         sidebarToggle.addEventListener('click', function() {
             sidebar.classList.toggle('collapsed');
         });
@@ -113,7 +123,7 @@ document.addEventListener('DOMContentLoaded', function() {
                         const searchField = document.getElementById('searchStudents');
                         if (searchField) {
                             searchField.value = query;
-                            filterStudents();
+                            if (typeof filterStudents === 'function') filterStudents();
                         }
                     }, 100);
                 } else {
@@ -127,7 +137,7 @@ document.addEventListener('DOMContentLoaded', function() {
     document.addEventListener('keydown', function(e) {
         if (e.key === 'Escape') {
             const modal = document.getElementById('modalContainer');
-            if (modal.style.display === 'flex') closeModal();
+            if (modal && modal.style.display === 'flex') closeModal();
         }
     });
 });
