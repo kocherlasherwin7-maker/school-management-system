@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <meta name="apple-mobile-web-app-title" content="SGV School">
+    <meta name="theme-color" content="#4f46e5">
+    <meta name="application-name" content="St.Gaspar Vidyalaya">
+    <link rel="apple-touch-icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='192' height='192' viewBox='0 0 512 512'%3E%3Crect width='512' height='512' rx='100' fill='%234f46e5'/%3E%3Cg transform='translate(256,240)'%3E%3Cpolygon points='-120,-20 0,-80 120,-20 0,40' fill='white' opacity='0.95'/%3E%3Cpolygon points='-100,-25 0,-70 100,-25 0,10' fill='rgba(255,255,255,0.85)'/%3E%3Cline x1='0' y1='-70' x2='30' y2='-40' stroke='white' stroke-width='4' stroke-linecap='round'/%3E%3Ccircle cx='30' cy='-40' r='6' fill='white'/%3E%3Crect x='-50' y='30' width='100' height='20' rx='4' fill='white' opacity='0.9'/%3E%3Crect x='-45' y='45' width='90' height='16' rx='3' fill='white' opacity='0.7'/%3E%3C/g%3E%3C/svg%3E">
+    <title>St.Gaspar Vidyalaya</title>
+    <link rel="stylesheet" href="/school-management-system/css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link rel="manifest" href="/school-management-system/manifest.json">
+</head>
+<body>
+    <!-- ====== LOGIN SCREEN ====== -->
+    <div id="loginScreen" class="login-screen">
+        <div class="login-bg-shapes">
+            <div class="shape shape-1"></div>
+            <div class="shape shape-2"></div>
+            <div class="shape shape-3"></div>
+        </div>
+        <div class="login-content">
+            <div class="login-brand">
+                <div class="login-icon">
+                    <i class="fas fa-graduation-cap"></i>
+                </div>
+                <h1>St.Gaspar Vidyalaya</h1>
+                <p>School Management System</p>
+            </div>
+            <form id="loginForm" class="login-form" autocomplete="off">
+                <div class="input-group">
+                    <i class="fas fa-envelope"></i>
+                    <input type="email" id="email" placeholder="Email address" required>
+                </div>
+                <div class="input-group">
+                    <i class="fas fa-lock"></i>
+                    <input type="password" id="password" placeholder="Password" required>
+                    <button type="button" class="pwd-toggle" onclick="togglePassword()"><i class="fas fa-eye"></i></button>
+                </div>
+                <div class="login-options">
+                    <label class="checkbox-label">
+                        <input type="checkbox" id="remember"> <span>Remember me</span>
+                    </label>
+                    <a href="#" class="forgot-link">Forgot?</a>
+                </div>
+                <button type="submit" class="btn-login">
+                    <span>Sign In</span>
+                    <i class="fas fa-arrow-right"></i>
+                </button>
+                <div id="loginError" class="alert alert-danger" style="display:none;"></div>
+            </form>
+            <div class="demo-creds">
+                <p>Demo Accounts</p>
+                <div class="cred-tabs">
+                    <span onclick="fillCreds('admin@school.com','admin123')">Admin</span>
+                    <span onclick="fillCreds('teacher@school.com','teacher123')">Teacher</span>
+                    <span onclick="fillCreds('alice@student.com','student123')">Student</span>
+                    <span onclick="fillCreds('robert@email.com','parent123')">Parent</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ====== APP CONTAINER ====== -->
+    <div id="appContainer" class="app-container" style="display:none;">
+        
+        <!-- Top Header Bar -->
+        <header class="app-header" id="appHeader">
+            <button class="header-btn" id="menuToggle" onclick="toggleDrawer()">
+                <i class="fas fa-bars"></i>
+            </button>
+            <div class="header-center">
+                <h1 id="pageTitle">Dashboard</h1>
+            </div>
+            <button class="header-btn" onclick="showToast('No new notifications', 'info')">
+                <i class="fas fa-bell"></i>
+                <span class="notif-dot" id="notifBadge">3</span>
+            </button>
+        </header>
+
+        <!-- Drawer Overlay -->
+        <div class="drawer-overlay" id="drawerOverlay" onclick="toggleDrawer()"></div>
+
+        <!-- Drawer Menu -->
+        <aside class="drawer" id="drawer">
+            <div class="drawer-header">
+                <div class="drawer-user">
+                    <div class="drawer-avatar" id="drawerAvatar">A</div>
+                    <div>
+                        <div class="drawer-name" id="drawerName">User</div>
+                        <div class="drawer-role" id="drawerRole">Role</div>
+                    </div>
+                </div>
+                <button class="header-btn" onclick="toggleDrawer()"><i class="fas fa-times"></i></button>
+            </div>
+            <nav class="drawer-nav" id="drawerNav">
+                <!-- Dynamically populated -->
+            </nav>
+            <div class="drawer-footer">
+                <button class="drawer-logout" onclick="handleLogout()">
+                    <i class="fas fa-sign-out-alt"></i> Sign Out
+                </button>
+            </div>
+        </aside>
+
+        <!-- Main Content Area -->
+        <main class="main-content" id="mainContent">
+            <div class="content-inner" id="pageContent">
+                <!-- Dynamic content loaded here -->
+            </div>
+        </main>
+
+        <!-- Bottom Tab Bar -->
+        <nav class="bottom-tabs" id="bottomTabs">
+            <!-- Dynamically populated -->
+        </nav>
+    </div>
+
+    <!-- ====== MODAL ====== -->
+    <div id="modalContainer" class="modal-overlay" style="display:none;">
+        <div class="modal-sheet" id="modalSheet">
+            <div class="modal-handle"></div>
+            <div class="modal-header">
+                <h3 id="modalTitle">Modal</h3>
+                <button class="modal-close" onclick="closeModal()"><i class="fas fa-times"></i></button>
+            </div>
+            <div class="modal-body" id="modalBody"></div>
+        </div>
+    </div>
+
+    <!-- ====== TOAST ====== -->
+    <div id="toastContainer" class="toast-container"></div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+    <script src="/school-management-system/js/utils/storage.js"></script>
+    <script src="/school-management-system/js/utils/security.js"></script>
+    <script src="/school-management-system/js/utils/validation.js"></script>
+    <script src="/school-management-system/js/modules/auth.js"></script>
+    <script src="/school-management-system/js/modules/dashboard.js"></script>
+    <script src="/school-management-system/js/modules/students.js"></script>
+    <script src="/school-management-system/js/modules/teachers.js"></script>
+    <script src="/school-management-system/js/modules/classes.js"></script>
+    <script src="/school-management-system/js/modules/attendance.js"></script>
+    <script src="/school-management-system/js/modules/grades.js"></script>
+    <script src="/school-management-system/js/modules/timetable.js"></script>
+    <script src="/school-management-system/js/modules/assignments.js"></script>
+    <script src="/school-management-system/js/modules/announcements.js"></script>
+    <script src="/school-management-system/js/modules/fees.js"></script>
+    <script src="/school-management-system/js/modules/library.js"></script>
+    <script src="/school-management-system/js/modules/student-portal.js"></script>
+    <script src="/school-management-system/js/modules/parent-portal.js"></script>
+    <script src="/school-management-system/js/app.js"></script>
+    <!-- PWA Registration -->
+    <script>
+    if ('serviceWorker' in navigator) {
+        window.addEventListener('load', () => {
+            navigator.serviceWorker.register('/school-management-system/sw.js')
+                .then(reg => console.log('SW registered:', reg.scope))
+                .catch(err => console.log('SW failed:', err));
+        });
+    }
+    // Detect install prompt
+    let deferredPrompt;
+    window.addEventListener('beforeinstallprompt', (e) => {
+        e.preventDefault();
+        deferredPrompt = e;
+        // Auto-show install after 3 seconds (only on supported devices)
+        setTimeout(() => {
+            if (deferredPrompt) {
+                deferredPrompt.prompt();
+                deferredPrompt.userChoice.then(() => deferredPrompt = null);
+            }
+        }, 3000);
+    });
+    </script>
+</body>
+</html>
