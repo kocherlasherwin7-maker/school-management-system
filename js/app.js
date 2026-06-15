@@ -63,16 +63,44 @@ function navigateTo(page) {
     const breadcrumbEl = document.getElementById('pageBreadcrumb');
     if (breadcrumbEl) breadcrumbEl.textContent = route.breadcrumb;
 
-    // Update navigation active state (only if nav-items exist)
-    const navItems = document.querySelectorAll('.nav-item');
-    if (navItems.length > 0) {
-        navItems.forEach(item => {
-            item.classList.toggle('active', item.dataset.page === page);
-        });
+    // Update drawer active state
+    document.querySelectorAll('.drawer-item').forEach(item => {
+        item.classList.toggle('active', item.dataset.page === page);
+    });
+
+    // Update bottom tab active state
+    document.querySelectorAll('.tab-item').forEach(tab => {
+        tab.classList.toggle('active', tab.dataset.tab === page);
+    });
+
+    // Update sidebar nav active state (legacy)
+    document.querySelectorAll('.nav-item').forEach(item => {
+        item.classList.toggle('active', item.dataset.page === page);
+    });
+
+    // Render page with error handling
+    try {
+        route.render();
+    } catch (err) {
+        console.error('Error rendering page:', page, err);
+        document.getElementById('pageContent').innerHTML = 
+            '<div class="card"><div class="card-body" style="text-align:center;padding:40px;">' +
+            '<i class="fas fa-exclamation-triangle" style="font-size:48px;color:var(--warning);margin-bottom:16px;"></i>' +
+            '<h3 style="color:var(--gray-700);margin-bottom:8px;">Something went wrong</h3>' +
+            '<p style="color:var(--gray-500);">Error loading page. Please try again.</p>' +
+            '<button class="btn btn-primary" onclick="navigateTo(\'' + page + '\')" style="margin-top:16px;">Retry</button>' +
+            '</div></div>';
     }
 
-    // Render page
-    route.render();
+    // Close drawer if open (mobile)
+    const drawer = document.getElementById('drawer');
+    const overlay = document.getElementById('drawerOverlay');
+    if (drawer && drawer.classList.contains('open')) {
+        drawer.classList.remove('open');
+    }
+    if (overlay && overlay.classList.contains('open')) {
+        overlay.classList.remove('open');
+    }
 }
 
 // Sidebar navigation
