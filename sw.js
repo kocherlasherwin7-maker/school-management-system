@@ -11,6 +11,7 @@ const STATIC_ASSETS = [
     '/school-management-system/manifest.json',
     '/school-management-system/icons/icon-192.png',
     '/school-management-system/icons/icon-512.png',
+    '/school-management-system/icons/school-logo.jpeg',
     '/school-management-system/css/style.css',
     '/school-management-system/js/utils/storage.js',
     '/school-management-system/js/utils/security.js',
