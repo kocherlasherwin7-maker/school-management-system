@@ -132,47 +132,47 @@ function updateDrawerForRole(user) {
     if (user.role === 'student') {
         nav.innerHTML = `
             <div class="drawer-section">Student</div>
-            <button class="drawer-item active" data-page="studentDashboard" onclick="navigateTo('studentDashboard');toggleDrawer()"><i class="fas fa-chart-pie"></i> Dashboard</button>
-            <button class="drawer-item" data-page="studentProfile" onclick="navigateTo('studentProfile');toggleDrawer()"><i class="fas fa-user"></i> My Profile</button>
-            <button class="drawer-item" data-page="myAssignments" onclick="navigateTo('myAssignments');toggleDrawer()"><i class="fas fa-tasks"></i> Assignments</button>
-            <button class="drawer-item" data-page="myPerformance" onclick="navigateTo('myPerformance');toggleDrawer()"><i class="fas fa-chart-line"></i> Performance</button>
-            <button class="drawer-item" data-page="myAttendance" onclick="navigateTo('myAttendance');toggleDrawer()"><i class="fas fa-calendar-check"></i> Attendance</button>
-            <button class="drawer-item" data-page="timetable" onclick="navigateTo('timetable');toggleDrawer()"><i class="fas fa-clock"></i> Timetable</button>
-            <button class="drawer-item" data-page="studentLibrary" onclick="navigateTo('studentLibrary');toggleDrawer()"><i class="fas fa-book"></i> Library</button>
-            <button class="drawer-item" data-page="studentMessages" onclick="navigateTo('studentMessages');toggleDrawer()"><i class="fas fa-envelope"></i> Messages</button>
-            <button class="drawer-item" data-page="announcements" onclick="navigateTo('announcements');toggleDrawer()"><i class="fas fa-bullhorn"></i> Announcements</button>`;
+            <button class="drawer-item active" data-page="studentDashboard" onclick="navigateTo('studentDashboard')"><i class="fas fa-chart-pie"></i> Dashboard</button>
+            <button class="drawer-item" data-page="studentProfile" onclick="navigateTo('studentProfile')"><i class="fas fa-user"></i> My Profile</button>
+            <button class="drawer-item" data-page="myAssignments" onclick="navigateTo('myAssignments')"><i class="fas fa-tasks"></i> Assignments</button>
+            <button class="drawer-item" data-page="myPerformance" onclick="navigateTo('myPerformance')"><i class="fas fa-chart-line"></i> Performance</button>
+            <button class="drawer-item" data-page="myAttendance" onclick="navigateTo('myAttendance')"><i class="fas fa-calendar-check"></i> Attendance</button>
+            <button class="drawer-item" data-page="timetable" onclick="navigateTo('timetable')"><i class="fas fa-clock"></i> Timetable</button>
+            <button class="drawer-item" data-page="studentLibrary" onclick="navigateTo('studentLibrary')"><i class="fas fa-book"></i> Library</button>
+            <button class="drawer-item" data-page="studentMessages" onclick="navigateTo('studentMessages')"><i class="fas fa-envelope"></i> Messages</button>
+            <button class="drawer-item" data-page="announcements" onclick="navigateTo('announcements')"><i class="fas fa-bullhorn"></i> Announcements</button>`;
     } else if (user.role === 'parent') {
         nav.innerHTML = `
             <div class="drawer-section">Parent</div>
-            <button class="drawer-item active" data-page="parentDashboard" onclick="navigateTo('parentDashboard');toggleDrawer()"><i class="fas fa-chart-pie"></i> Dashboard</button>
-            <button class="drawer-item" data-page="parentProfile" onclick="navigateTo('parentProfile');toggleDrawer()"><i class="fas fa-user"></i> My Profile</button>
-            <button class="drawer-item" data-page="parentFees" onclick="navigateTo('parentFees');toggleDrawer()"><i class="fas fa-money-bill-wave"></i> Fees & Payments</button>
-            <button class="drawer-item" data-page="parentMessaging" onclick="navigateTo('parentMessaging');toggleDrawer()"><i class="fas fa-envelope"></i> Messages</button>
-            <button class="drawer-item" data-page="parentReports" onclick="navigateTo('parentReports');toggleDrawer()"><i class="fas fa-download"></i> Reports</button>
-            <button class="drawer-item" data-page="parentCalendar" onclick="navigateTo('parentCalendar');toggleDrawer()"><i class="fas fa-calendar"></i> Calendar</button>
-            <button class="drawer-item" data-page="parentHealth" onclick="navigateTo('parentHealth');toggleDrawer()"><i class="fas fa-heartbeat"></i> Health</button>
-            <button class="drawer-item" data-page="parentTransport" onclick="navigateTo('parentTransport');toggleDrawer()"><i class="fas fa-bus"></i> Transport</button>
-            <button class="drawer-item" data-page="announcements" onclick="navigateTo('announcements');toggleDrawer()"><i class="fas fa-bullhorn"></i> Announcements</button>`;
+            <button class="drawer-item active" data-page="parentDashboard" onclick="navigateTo('parentDashboard')"><i class="fas fa-chart-pie"></i> Dashboard</button>
+            <button class="drawer-item" data-page="parentProfile" onclick="navigateTo('parentProfile')"><i class="fas fa-user"></i> My Profile</button>
+            <button class="drawer-item" data-page="parentFees" onclick="navigateTo('parentFees')"><i class="fas fa-money-bill-wave"></i> Fees & Payments</button>
+            <button class="drawer-item" data-page="parentMessaging" onclick="navigateTo('parentMessaging')"><i class="fas fa-envelope"></i> Messages</button>
+            <button class="drawer-item" data-page="parentReports" onclick="navigateTo('parentReports')"><i class="fas fa-download"></i> Reports</button>
+            <button class="drawer-item" data-page="parentCalendar" onclick="navigateTo('parentCalendar')"><i class="fas fa-calendar"></i> Calendar</button>
+            <button class="drawer-item" data-page="parentHealth" onclick="navigateTo('parentHealth')"><i class="fas fa-heartbeat"></i> Health</button>
+            <button class="drawer-item" data-page="parentTransport" onclick="navigateTo('parentTransport')"><i class="fas fa-bus"></i> Transport</button>
+            <button class="drawer-item" data-page="announcements" onclick="navigateTo('announcements')"><i class="fas fa-bullhorn"></i> Announcements</button>`;
     } else {
         nav.innerHTML = `
             <div class="drawer-section">Main</div>
-            <button class="drawer-item active" data-page="dashboard" onclick="navigateTo('dashboard');toggleDrawer()"><i class="fas fa-chart-pie"></i> Dashboard</button>
+            <button class="drawer-item active" data-page="dashboard" onclick="navigateTo('dashboard')"><i class="fas fa-chart-pie"></i> Dashboard</button>
             <div class="drawer-section">Management</div>
-            <button class="drawer-item" data-page="students" onclick="navigateTo('students');toggleDrawer()"><i class="fas fa-user-graduate"></i> Students</button>
-            <button class="drawer-item" data-page="teachers" onclick="navigateTo('teachers');toggleDrawer()"><i class="fas fa-chalkboard-teacher"></i> Teachers</button>
-            <button class="drawer-item" data-page="classes" onclick="navigateTo('classes');toggleDrawer()"><i class="fas fa-school"></i> Classes</button>
+            <button class="drawer-item" data-page="students" onclick="navigateTo('students')"><i class="fas fa-user-graduate"></i> Students</button>
+            <button class="drawer-item" data-page="teachers" onclick="navigateTo('teachers')"><i class="fas fa-chalkboard-teacher"></i> Teachers</button>
+            <button class="drawer-item" data-page="classes" onclick="navigateTo('classes')"><i class="fas fa-school"></i> Classes</button>
             <div class="drawer-section">Academic</div>
-            <button class="drawer-item" data-page="attendance" onclick="navigateTo('attendance');toggleDrawer()"><i class="fas fa-calendar-check"></i> Attendance</button>
-            <button class="drawer-item" data-page="grades" onclick="navigateTo('grades');toggleDrawer()"><i class="fas fa-star"></i> Grades</button>
-            <button class="drawer-item" data-page="timetable" onclick="navigateTo('timetable');toggleDrawer()"><i class="fas fa-clock"></i> Timetable</button>
-            <button class="drawer-item" data-page="assignments" onclick="navigateTo('assignments');toggleDrawer()"><i class="fas fa-tasks"></i> Assignments</button>
+            <button class="drawer-item" data-page="attendance" onclick="navigateTo('attendance')"><i class="fas fa-calendar-check"></i> Attendance</button>
+            <button class="drawer-item" data-page="grades" onclick="navigateTo('grades')"><i class="fas fa-star"></i> Grades</button>
+            <button class="drawer-item" data-page="timetable" onclick="navigateTo('timetable')"><i class="fas fa-clock"></i> Timetable</button>
+            <button class="drawer-item" data-page="assignments" onclick="navigateTo('assignments')"><i class="fas fa-tasks"></i> Assignments</button>
             <div class="drawer-section">Administration</div>
-            <button class="drawer-item" data-page="announcements" onclick="navigateTo('announcements');toggleDrawer()"><i class="fas fa-bullhorn"></i> Announcements</button>
-            <button class="drawer-item" data-page="fees" onclick="navigateTo('fees');toggleDrawer()"><i class="fas fa-money-bill-wave"></i> Fees</button>
-            <button class="drawer-item" data-page="library" onclick="navigateTo('library');toggleDrawer()"><i class="fas fa-book"></i> Library</button>
+            <button class="drawer-item" data-page="announcements" onclick="navigateTo('announcements')"><i class="fas fa-bullhorn"></i> Announcements</button>
+            <button class="drawer-item" data-page="fees" onclick="navigateTo('fees')"><i class="fas fa-money-bill-wave"></i> Fees</button>
+            <button class="drawer-item" data-page="library" onclick="navigateTo('library')"><i class="fas fa-book"></i> Library</button>
             <div class="drawer-section">System</div>
-            <button class="drawer-item" data-page="users" onclick="navigateTo('users');toggleDrawer()"><i class="fas fa-users-cog"></i> Users</button>
-            <button class="drawer-item" data-page="settings" onclick="navigateTo('settings');toggleDrawer()"><i class="fas fa-cog"></i> Settings</button>`;
+            <button class="drawer-item" data-page="users" onclick="navigateTo('users')"><i class="fas fa-users-cog"></i> Users</button>
+            <button class="drawer-item" data-page="settings" onclick="navigateTo('settings')"><i class="fas fa-cog"></i> Settings</button>`;
     }
 }
 
