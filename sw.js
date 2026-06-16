@@ -4,33 +4,33 @@
  * Compatible with GitHub Pages deployment
  */
 
-const CACHE_NAME = 'sgv-cache-v1';
+const CACHE_NAME = 'sgv-cache-v3';
 const STATIC_ASSETS = [
-    '/school-management-system/',
-    '/school-management-system/index.html',
-    '/school-management-system/manifest.json',
-    '/school-management-system/icons/icon-192.png',
-    '/school-management-system/icons/icon-512.png',
-    '/school-management-system/icons/school-logo.jpeg',
-    '/school-management-system/css/style.css',
-    '/school-management-system/js/utils/storage.js',
-    '/school-management-system/js/utils/security.js',
-    '/school-management-system/js/utils/validation.js',
-    '/school-management-system/js/modules/auth.js',
-    '/school-management-system/js/modules/dashboard.js',
-    '/school-management-system/js/modules/students.js',
-    '/school-management-system/js/modules/teachers.js',
-    '/school-management-system/js/modules/classes.js',
-    '/school-management-system/js/modules/attendance.js',
-    '/school-management-system/js/modules/grades.js',
-    '/school-management-system/js/modules/timetable.js',
-    '/school-management-system/js/modules/assignments.js',
-    '/school-management-system/js/modules/announcements.js',
-    '/school-management-system/js/modules/fees.js',
-    '/school-management-system/js/modules/library.js',
-    '/school-management-system/js/modules/student-portal.js',
-    '/school-management-system/js/modules/parent-portal.js',
-    '/school-management-system/js/app.js'
+    './',
+    './index.html',
+    './manifest.json',
+    './icons/icon-192.png',
+    './icons/icon-512.png',
+    './icons/school-logo.jpeg',
+    './css/style.css',
+    './js/utils/storage.js',
+    './js/utils/security.js',
+    './js/utils/validation.js',
+    './js/modules/auth.js',
+    './js/modules/dashboard.js',
+    './js/modules/students.js',
+    './js/modules/teachers.js',
+    './js/modules/classes.js',
+    './js/modules/attendance.js',
+    './js/modules/grades.js',
+    './js/modules/timetable.js',
+    './js/modules/assignments.js',
+    './js/modules/announcements.js',
+    './js/modules/fees.js',
+    './js/modules/library.js',
+    './js/modules/student-portal.js',
+    './js/modules/parent-portal.js',
+    './js/app.js'
 ];
 
 // Install event - cache static assets
@@ -67,14 +67,14 @@ self.addEventListener('fetch', (event) => {
     if (event.request.method !== 'GET') return;
 
     // Only handle requests within our scope
-    if (!event.request.url.includes('/school-management-system/')) return;
+    // Handle all requests (relative paths now)
 
     // Handle navigation requests - serve index.html for SPA routing
     if (event.request.mode === 'navigate') {
         event.respondWith(
             fetch(event.request)
                 .catch(() => {
-                    return caches.match('/school-management-system/index.html')
+                    return caches.match('./index.html')
                         .then(cached => {
                             if (cached) return cached;
                             return new Response('Offline', { status: 503 });
@@ -102,8 +102,8 @@ self.addEventListener('fetch', (event) => {
                     })
                     .catch(() => {
                         // If it's an HTML navigation, return index.html
-                        if (event.request.headers.get('Accept').includes('text/html')) {
-                            return caches.match('/school-management-system/index.html');
+                        if (event.request.headers.get('Accept') && event.request.headers.get('Accept').includes('text/html')) {
+                            return caches.match('./index.html');
                         }
                         return new Response('Offline', { status: 503 });
                     });

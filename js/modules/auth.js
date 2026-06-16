@@ -28,8 +28,20 @@ function fillCreds(email, password) {
 
 // ====== DRAWER ======
 function toggleDrawer() {
-    document.getElementById('drawer').classList.toggle('open');
-    document.getElementById('drawerOverlay').classList.toggle('open');
+    const drawer = document.getElementById('drawer');
+    const overlay = document.getElementById('drawerOverlay');
+    
+    // Ensure drawer nav is populated when opening
+    if (drawer && !drawer.classList.contains('open')) {
+        const user = security.currentUser;
+        if (user) {
+            updateDrawerForRole(user);
+            updateBottomTabsForRole(user);
+        }
+    }
+    
+    if (drawer) drawer.classList.toggle('open');
+    if (overlay) overlay.classList.toggle('open');
 }
 
 function initAuth() {
@@ -88,22 +100,29 @@ function handleLogout() {
 }
 
 function showApp() {
-    document.getElementById('loginScreen').style.display = 'none';
-    document.getElementById('appContainer').style.display = 'flex';
+    try {
+        document.getElementById('loginScreen').style.display = 'none';
+        document.getElementById('appContainer').style.display = 'flex';
 
-    const user = security.currentUser;
-    if (user) {
-        document.getElementById('drawerName').textContent = user.name;
-        document.getElementById('drawerRole').textContent = user.role.charAt(0).toUpperCase() + user.role.slice(1);
-        document.getElementById('drawerAvatar').textContent = user.name.charAt(0).toUpperCase();
+        const user = security.currentUser;
+        if (user) {
+            const drawerNameEl = document.getElementById('drawerName');
+            const drawerRoleEl = document.getElementById('drawerRole');
+            if (drawerNameEl) drawerNameEl.textContent = user.name;
+            if (drawerRoleEl) drawerRoleEl.textContent = user.role.charAt(0).toUpperCase() + user.role.slice(1);
+        }
+
+        if (user) {
+            updateDrawerForRole(user);
+            updateBottomTabsForRole(user);
+        }
+
+        if (user && user.role === 'student') navigateTo('studentDashboard');
+        else if (user && user.role === 'parent') navigateTo('parentDashboard');
+        else navigateTo('dashboard');
+    } catch (err) {
+        console.error('Error in showApp:', err);
     }
-
-    updateDrawerForRole(user);
-    updateBottomTabsForRole(user);
-
-    if (user.role === 'student') navigateTo('studentDashboard');
-    else if (user.role === 'parent') navigateTo('parentDashboard');
-    else navigateTo('dashboard');
 }
 
 function updateDrawerForRole(user) {
