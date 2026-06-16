@@ -9,7 +9,7 @@ function renderTimetable() {
     const content = `
         <div class="toolbar">
             <div class="toolbar-left">
-                <select class="form-control" id="timetableClass" onchange="renderTimetableView()" style="width:auto;min-width:200px;">
+                <select class="form-control" id="timetableClass" onchange="renderTimetableView()" style="width:auto;">
                     ${classes.map(c => `<option value="${c.id}">${sanitize(c.name)}</option>`).join('')}
                 </select>
             </div>
@@ -110,17 +110,17 @@ function showEditTimetableModal() {
         times.forEach((time, idx) => {
             const entry = timetable.find(t => t.day === day && t.periodIndex === idx);
             formHtml += `
-                <div style="display:flex;gap:8px;margin-bottom:8px;align-items:center;">
-                    <span style="min-width:120px;font-size:13px;font-weight:600;">${time}</span>
-                    <select class="form-control" name="subject_${day}_${idx}" style="width:auto;min-width:150px;">
+                <div style="display:flex;flex-wrap:wrap;gap:6px;margin-bottom:8px;align-items:center;">
+                    <span style="min-width:90px;font-size:12px;font-weight:600;flex-shrink:0;">${time}</span>
+                    <select class="form-control" name="subject_${day}_${idx}" style="flex:1;min-width:120px;">
                         <option value="">Free Period</option>
                         ${subjects.map(s => `<option value="${s}" ${entry && entry.subject === s ? 'selected' : ''}>${s}</option>`).join('')}
                     </select>
-                    <select class="form-control" name="teacher_${day}_${idx}" style="width:auto;min-width:180px;">
+                    <select class="form-control" name="teacher_${day}_${idx}" style="flex:1;min-width:120px;">
                         <option value="">No Teacher</option>
                         ${teachers.map(t => `<option value="${t.id}" ${entry && entry.teacherId === t.id ? 'selected' : ''}>${sanitize(t.firstName + ' ' + t.lastName)}</option>`).join('')}
                     </select>
-                    <input type="text" class="form-control" name="room_${day}_${idx}" placeholder="Room" value="${entry ? entry.room : ''}" style="width:80px;">
+                    <input type="text" class="form-control" name="room_${day}_${idx}" placeholder="Room" value="${entry ? entry.room : ''}" style="width:70px;">
                 </div>
             `;
         });

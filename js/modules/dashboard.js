@@ -119,7 +119,7 @@ function renderDashboard() {
             </div>
         </div>
 
-        <div style="display:grid;grid-template-columns:1fr 1fr;gap:24px;">
+        <div class="two-col-grid">
             <div class="card">
                 <div class="card-header">
                     <h2><i class="fas fa-star"></i> Recent Grades</h2>

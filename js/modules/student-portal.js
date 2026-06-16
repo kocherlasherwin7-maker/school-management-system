@@ -68,7 +68,7 @@ function renderStudentDashboard() {
                 </div>
             </div>
         </div>
-        <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px;">
+        <div class="two-col-grid">
             <div class="card">
                 <div class="card-header"><h2><i class="fas fa-clock"></i> Today's Timetable</h2><button class="btn btn-sm btn-primary" onclick="navigateTo('timetable')">View Full</button></div>
                 <div class="card-body">
@@ -82,7 +82,7 @@ function renderStudentDashboard() {
                 </div>
             </div>
         </div>
-        <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-top:20px;">
+        <div class="two-col-grid" style="margin-top:20px;">
             <div class="card">
                 <div class="card-header"><h2><i class="fas fa-star"></i> Recent Grades</h2><button class="btn btn-sm btn-primary" onclick="navigateTo('myPerformance')">View All</button></div>
                 <div class="card-body">
@@ -108,7 +108,7 @@ function renderStudentProfile() {
             <button class="btn btn-secondary" onclick="navigateTo('studentDashboard')"><i class="fas fa-arrow-left"></i> Back to Dashboard</button>
             <button class="btn btn-primary" style="margin-left:8px;" onclick="showEditMyProfileModal()"><i class="fas fa-edit"></i> Edit Profile</button>
         </div>
-        <div style="display:grid;grid-template-columns:300px 1fr;gap:24px;">
+        <div class="two-col-grid" style="grid-template-columns:minmax(0,1.2fr) minmax(0,1fr);">
             <div class="card">
                 <div class="card-body" style="text-align:center;">
                     <div style="width:100px;height:100px;border-radius:50%;background:linear-gradient(135deg,var(--primary),var(--secondary));display:flex;align-items:center;justify-content:center;font-size:40px;color:white;margin:0 auto 16px;font-weight:700;">${student.firstName.charAt(0)}${student.lastName.charAt(0)}</div>

@@ -32,7 +32,7 @@ function renderParentDashboard() {
             const attRate = attendance.length > 0 ? Math.round((presentCount / attendance.length) * 100) : 0;
             return `<div class="card"><div class="card-body"><div style="display:flex;align-items:center;gap:12px;margin-bottom:12px;"><div style="width:48px;height:48px;border-radius:50%;background:linear-gradient(135deg,var(--primary),var(--secondary));display:flex;align-items:center;justify-content:center;font-size:20px;color:white;font-weight:700;">${child.firstName.charAt(0)}${child.lastName.charAt(0)}</div><div><h4 style="font-size:16px;">${sanitize(child.firstName + ' ' + child.lastName)}</h4><p style="font-size:12px;color:var(--gray-500);">${sanitize(cls ? cls.name : 'N/A')}</p></div></div><div class="stats-grid" style="grid-template-columns:1fr 1fr;gap:8px;margin-bottom:12px;"><div class="stat-card" style="padding:12px;"><div class="stat-info"><h3 style="font-size:20px;">${avgGrade}%</h3><p style="font-size:11px;">Avg Grade</p></div></div><div class="stat-card" style="padding:12px;"><div class="stat-info"><h3 style="font-size:20px;">${attRate}%</h3><p style="font-size:11px;">Attendance</p></div></div></div><div style="display:flex;gap:8px;"><button class="btn btn-sm btn-primary" onclick="navigateTo('childDetail')" style="flex:1;" onclick="showChildDetail('${child.id}')"><i class="fas fa-eye"></i> View</button><button class="btn btn-sm btn-secondary" onclick="navigateTo('parentMessaging')" style="flex:1;"><i class="fas fa-envelope"></i> Message</button></div></div></div>`;
         }).join('')}</div>` : `<div class="card"><div class="card-body"><div class="empty-state"><i class="fas fa-child"></i><h3>No children linked to your account</h3><p>Contact the school admin to link your children</p></div></div></div>`}
-        <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px;">
+        <div class="two-col-grid">
             <div class="card">
                 <div class="card-header"><h2><i class="fas fa-bullhorn"></i> Announcements</h2><button class="btn btn-sm btn-primary" onclick="navigateTo('announcements')">View All</button></div>
                 <div class="card-body">${announcements.length > 0 ? announcements.slice(0,4).map(a => `<div style="padding:10px 0;border-bottom:1px solid var(--gray-100);"><div style="display:flex;justify-content:space-between;"><strong style="font-size:14px;">${sanitize(a.title)}</strong><span class="badge ${a.priority === 'high' ? 'badge-danger' : 'badge-warning'}" style="font-size:10px;">${sanitize(a.priority)}</span></div><p style="font-size:12px;color:var(--gray-500);margin-top:4px;">${sanitize(a.date)}</p></div>`).join('') : `<div class="empty-state"><i class="fas fa-bullhorn"></i><h3>No announcements</h3></div>`}</div>
@@ -59,7 +59,7 @@ function showChildDetail(childId) {
     const paidFee = fees.filter(f => f.status === 'paid').reduce((s,f) => s + f.paidAmount, 0);
 
     openModal(`${sanitize(child.firstName + ' ' + child.lastName)} - Details`, `
-        <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;">
+        <div class="two-col-grid">
             <div>
                 <h4 style="color:var(--primary);margin-bottom:12px;">Personal Info</h4>
                 <table class="details-table">

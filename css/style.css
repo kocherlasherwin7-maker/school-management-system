@@ -818,6 +818,99 @@ textarea.form-control { resize: vertical; min-height: 80px; }
 }
 
 /* =============================================
+   RESPONSIVE MOBILE — Content Fit Fixes
+   ============================================= */
+.two-col-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+}
+.three-col-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+}
+.toolbar {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+}
+.toolbar .form-control {
+    min-width: 0;
+}
+
+@media (max-width: 480px) {
+    .content-inner { padding: 12px; }
+
+    /* Two-column grids → stack */
+    .two-col-grid {
+        grid-template-columns: 1fr;
+        gap: 12px;
+    }
+
+    /* Stats cards tighter */
+    .stats-grid {
+        gap: 8px;
+        margin-bottom: 16px;
+    }
+    .stat-card { padding: 12px; gap: 10px; }
+    .stat-icon { width: 40px; height: 40px; font-size: 18px; border-radius: 12px; }
+    .stat-info h3 { font-size: 18px; }
+    .stat-info p { font-size: 11px; }
+
+    /* Fee summary 2-col on small screens */
+    .fee-summary { grid-template-columns: 1fr 1fr; gap: 8px; }
+
+    /* Timetable — horizontal scroll */
+    .timetable-grid {
+        grid-template-columns: 50px repeat(5, minmax(90px, 1fr));
+        overflow-x: auto;
+        display: block;
+    }
+    .timetable-header, .timetable-time, .timetable-cell {
+        min-width: 90px;
+    }
+    .timetable-header:first-child, .timetable-time:first-child {
+        min-width: 50px;
+        position: sticky;
+        left: 0;
+        z-index: 1;
+    }
+
+    /* Tables horizontal scroll */
+    .table-container { margin: 0 -12px; padding: 0 12px; }
+
+    /* Toolbar stacking */
+    .toolbar { flex-direction: column; align-items: stretch; }
+    .toolbar-left, .toolbar-right { width: 100%; }
+    .toolbar .form-control { width: 100% !important; }
+    .toolbar .btn { width: 100%; }
+
+    /* Card header wrapping */
+    .card-header { flex-wrap: wrap; gap: 8px; }
+    .card-header h2 { font-size: 14px; }
+
+    /* Form rows single column */
+    .form-row { grid-template-columns: 1fr; }
+
+    /* Buttons full width */
+    .form-actions { flex-direction: column; }
+    .form-actions .btn { width: 100%; }
+
+    /* Toast full width */
+    .toast-container { left: 8px; right: 8px; }
+}
+
+@media (min-width: 481px) and (max-width: 767px) {
+    .two-col-grid { gap: 12px; }
+    .fee-summary { grid-template-columns: 1fr 1fr; }
+    .timetable-grid {
+        grid-template-columns: 50px repeat(5, minmax(80px, 1fr));
+        overflow-x: auto;
+        display: block;
+    }
+}
+
+/* =============================================
    UTILITY
    ============================================= */
 .text-center { text-align: center; }
