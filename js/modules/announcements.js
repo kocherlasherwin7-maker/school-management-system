@@ -3,7 +3,7 @@
  */
 
 function renderAnnouncements() {
-    const announcements = db.getAll('announcements');
+    const announcements = db.getAll('announcements').sort((a, b) => new Date(b.date) - new Date(a.date));
 
     const content = `
         <div class="toolbar">
@@ -64,7 +64,7 @@ function renderAnnouncements() {
 function filterAnnouncements() {
     const category = document.getElementById('announceCategory').value;
     const priority = document.getElementById('announcePriority').value;
-    let announcements = db.getAll('announcements');
+    let announcements = db.getAll('announcements').sort((a, b) => new Date(b.date) - new Date(a.date));
 
     if (category) announcements = announcements.filter(a => a.category === category);
     if (priority) announcements = announcements.filter(a => a.priority === priority);

@@ -10,7 +10,7 @@ function renderDashboard() {
     const attendance = db.getAll('attendance');
     const fees = db.getAll('fees');
     const assignments = db.getAll('assignments');
-    const announcements = db.getAll('announcements');
+    const announcements = db.getAll('announcements').sort((a, b) => new Date(b.date) - new Date(a.date));
 
     const totalStudents = students.length;
     const totalTeachers = teachers.length;

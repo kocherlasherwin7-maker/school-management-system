@@ -9,7 +9,7 @@ function renderParentDashboard() {
     const allStudents = db.getAll('students');
     const children = allStudents.filter(s => s.parentEmail === user.email || s.parentPhone === user.email);
     const classes = db.getAll('classes');
-    const announcements = db.getAll('announcements');
+    const announcements = db.getAll('announcements').sort((a, b) => new Date(b.date) - new Date(a.date));
     const upcomingEvents = db.getAll('events') || [];
 
     const content = `

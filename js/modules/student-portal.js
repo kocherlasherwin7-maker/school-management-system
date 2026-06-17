@@ -13,7 +13,7 @@ function renderStudentDashboard() {
     const grades = student ? db.query('grades', g => g.studentId === student.id) : [];
     const attendance = student ? db.query('attendance', a => a.studentId === student.id) : [];
     const assignments = student ? db.query('assignments', a => a.classId === (cls ? cls.id : '')) : [];
-    const announcements = db.getAll('announcements');
+    const announcements = db.getAll('announcements').sort((a, b) => new Date(b.date) - new Date(a.date));
     const timetable = student && cls ? db.query('timetable', t => t.classId === cls.id) : [];
     const days = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
     const todayTt = timetable ? timetable.filter(t => t.day === days[new Date().getDay()]).sort((a,b) => a.periodIndex - b.periodIndex) : [];
