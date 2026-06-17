@@ -956,9 +956,8 @@ textarea.form-control { resize: vertical; min-height: 80px; }
 
     /* Timetable — horizontal scroll */
     .timetable-grid {
-        grid-template-columns: 50px repeat(5, minmax(90px, 1fr));
+        grid-template-columns: 50px repeat(6, minmax(90px, 1fr));
         overflow-x: auto;
-        display: block;
     }
     .timetable-header, .timetable-time, .timetable-cell {
         min-width: 90px;
@@ -1016,9 +1015,8 @@ textarea.form-control { resize: vertical; min-height: 80px; }
     .two-col-grid { gap: 12px; }
     .fee-summary { grid-template-columns: 1fr 1fr; }
     .timetable-grid {
-        grid-template-columns: 50px repeat(5, minmax(80px, 1fr));
+        grid-template-columns: 50px repeat(6, minmax(80px, 1fr));
         overflow-x: auto;
-        display: block;
     }
 }
 
