@@ -746,28 +746,104 @@ textarea.form-control { resize: vertical; min-height: 80px; }
 .fee-card.overdue .fee-amount { color: #ef4444; }
 
 /* =============================================
-   TIMETABLE
+   TIMETABLE (Transposed: Time=columns, Days=rows)
    ============================================= */
 .timetable-grid {
     display: grid;
-    grid-template-columns: 60px repeat(6, 1fr);
     gap: 1px;
     background: var(--gray-200);
     border-radius: var(--radius-sm);
     overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+}
+.timetable-transposed {
+    grid-template-columns: 60px repeat(6, minmax(100px, 1fr));
 }
 .timetable-header {
     background: var(--primary);
     color: white;
-    padding: 8px;
+    padding: 10px 6px;
     text-align: center;
     font-weight: 600;
     font-size: 11px;
+    white-space: nowrap;
 }
-.timetable-time { background: var(--gray-50); padding: 8px; display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 600; color: var(--gray-600); }
-.timetable-cell { background: white; padding: 6px; min-height: 60px; text-align: center; font-size: 12px; }
-.timetable-cell .subject { font-weight: 600; color: var(--gray-800); }
-.timetable-cell .teacher-name { font-size: 10px; color: var(--gray-500); }
+.timetable-corner {
+    background: var(--primary-dark);
+    position: sticky;
+    left: 0;
+    z-index: 2;
+}
+.timetable-day-label {
+    background: var(--gray-50);
+    padding: 10px 8px;
+    font-weight: 700;
+    font-size: 12px;
+    color: var(--gray-700);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: sticky;
+    left: 0;
+    z-index: 1;
+    border-right: 2px solid var(--gray-200);
+}
+.timetable-day-label.today-highlight {
+    background: var(--primary);
+    color: white;
+}
+.timetable-cell {
+    background: white;
+    padding: 8px 6px;
+    min-height: 64px;
+    text-align: center;
+    font-size: 12px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 2px;
+}
+.timetable-cell.today-cell {
+    background: #eef2ff;
+    border: 1px solid var(--primary-light);
+}
+.timetable-cell .subject {
+    font-weight: 600;
+    color: var(--gray-800);
+    font-size: 12px;
+    line-height: 1.2;
+}
+.timetable-cell .teacher-name {
+    font-size: 10px;
+    color: var(--gray-500);
+}
+.timetable-cell .room {
+    font-size: 9px;
+    color: var(--gray-400);
+}
+/* Mini timetable for dashboards */
+.timetable-mini {
+    grid-template-columns: 40px repeat(6, minmax(70px, 1fr));
+}
+.timetable-mini .timetable-header {
+    font-size: 9px;
+    padding: 6px 3px;
+}
+.timetable-mini .timetable-day-label {
+    font-size: 10px;
+    padding: 4px;
+}
+.timetable-mini .timetable-cell {
+    min-height: 36px;
+    padding: 3px;
+}
+.timetable-mini .timetable-cell .subject {
+    font-size: 10px;
+}
+.timetable-mini .timetable-cell .teacher-name {
+    font-size: 8px;
+}
 
 /* =============================================
    EMPTY STATE

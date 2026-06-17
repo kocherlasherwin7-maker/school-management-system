@@ -16,7 +16,7 @@ function renderStudentDashboard() {
     const announcements = db.getAll('announcements').sort((a, b) => new Date(b.date) - new Date(a.date));
     const timetable = student && cls ? db.query('timetable', t => t.classId === cls.id) : [];
     const days = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
-    const todayTt = timetable ? timetable.filter(t => t.day === days[new Date().getDay()]).sort((a,b) => a.periodIndex - b.periodIndex) : [];
+    const todayName = days[new Date().getDay()];
     const avgGrade = grades.length > 0 ? Math.round(grades.reduce((s,g) => s + (g.score/g.totalMarks*100), 0) / grades.length) : 0;
     const presentCount = attendance.filter(a => a.status === 'present').length;
     const attendanceRate = attendance.length > 0 ? Math.round((presentCount / attendance.length) * 100) : 0;
@@ -70,9 +70,9 @@ function renderStudentDashboard() {
         </div>
         <div class="two-col-grid">
             <div class="card">
-                <div class="card-header"><h2><i class="fas fa-clock"></i> Today's Timetable</h2><button class="btn btn-sm btn-primary" onclick="navigateTo('timetable')">View Full</button></div>
-                <div class="card-body">
-                    ${todayTt.length > 0 ? `<div class="table-container"><table><thead><tr><th>Period</th><th>Subject</th><th>Teacher</th><th>Room</th></tr></thead><tbody>${todayTt.slice(0,6).map(t => {const teacher = db.getById('teachers', t.teacherId); return `<tr><td>${sanitize(t.period)}</td><td><strong>${sanitize(t.subject)}</strong></td><td>${sanitize(teacher ? teacher.firstName + ' ' + teacher.lastName : 'N/A')}</td><td>${sanitize(t.room)}</td></tr>`;}).join('')}</tbody></table></div>` : `<div class="empty-state"><i class="fas fa-clock"></i><h3>No classes today</h3></div>`}
+                <div class="card-header"><h2><i class="fas fa-clock"></i> Weekly Timetable</h2><button class="btn btn-sm btn-primary" onclick="navigateTo('timetable')">View Full</button></div>
+                <div class="card-body" style="overflow-x:auto;">
+                    ${timetable.length > 0 ? renderMiniTimetable(timetable, db.getAll('teachers'), todayName) : `<div class="empty-state"><i class="fas fa-clock"></i><h3>No classes scheduled</h3></div>`}
                 </div>
             </div>
             <div class="card">

@@ -215,41 +215,34 @@ function renderRecentGrades() {
 }
 
 function renderTodayTimetable() {
+    const user = security.currentUser;
     const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
     const todayName = days[new Date().getDay()];
-    const timetable = db.query('timetable', t => t.day === todayName);
-    const teachers = db.getAll('teachers');
-    
-    if (timetable.length === 0) {
-        return `<div class="empty-state"><i class="fas fa-clock"></i><h3>No classes scheduled today</h3></div>`;
+
+    // Get class ID based on user role
+    let classId = '';
+    if (user && user.role === 'student') {
+        const student = db.getAll('students').find(s => s.email === user.email);
+        if (student) classId = student.classId;
+    } else if (user && user.role === 'parent') {
+        const children = db.getAll('students').filter(s => s.parentEmail === user.email || s.parentPhone === user.email);
+        if (children.length > 0) classId = children[0].classId;
+    } else {
+        const classes = db.getAll('classes');
+        if (classes.length > 0) classId = classes[0].id;
     }
 
-    timetable.sort((a, b) => a.periodIndex - b.periodIndex);
-    
-    return `
-    <div class="table-container">
-        <table>
-            <thead>
-                <tr>
-                    <th>Period</th>
-                    <th>Subject</th>
-                    <th>Teacher</th>
-                    <th>Room</th>
-                </tr>
-            </thead>
-            <tbody>
-                ${timetable.slice(0, 6).map(t => {
-                    const teacher = teachers.find(te => te.id === t.teacherId);
-                    return `
-                    <tr>
-                        <td>${sanitize(t.period)}</td>
-                        <td><strong>${sanitize(t.subject)}</strong></td>
-                        <td>${sanitize(teacher ? teacher.firstName + ' ' + teacher.lastName : 'Unknown')}</td>
-                        <td>${sanitize(t.room)}</td>
-                    </tr>
-                    `;
-                }).join('')}
-            </tbody>
-        </table>
-    </div>`;
+    if (!classId) {
+        return `<div class="empty-state"><i class="fas fa-clock"></i><h3>No class assigned</h3></div>`;
+    }
+
+    const timetable = db.query('timetable', t => t.classId === classId);
+    const teachers = db.getAll('teachers');
+
+    if (timetable.length === 0) {
+        return `<div class="empty-state"><i class="fas fa-clock"></i><h3>No classes scheduled</h3></div>`;
+    }
+
+    // Use the mini transposed timetable
+    return `<div style="overflow-x:auto;">${renderMiniTimetable(timetable, teachers, todayName)}</div>`;
 }
