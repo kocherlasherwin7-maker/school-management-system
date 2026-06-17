@@ -841,10 +841,25 @@ textarea.form-control { resize: vertical; min-height: 80px; }
 @media (max-width: 480px) {
     .content-inner { padding: 12px; }
 
+    /* Global overflow containment */
+    .main-content {
+        height: calc(100vh - var(--header-h) - var(--bottom-nav-h) - var(--safe-bottom));
+        overflow-y: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    /* Card overflow */
+    .card { overflow: hidden; }
+    .card-body { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+
     /* Two-column grids → stack */
     .two-col-grid {
         grid-template-columns: 1fr;
         gap: 12px;
+    }
+    .three-col-grid {
+        grid-template-columns: 1fr;
+        gap: 10px;
     }
 
     /* Stats cards tighter */
@@ -856,9 +871,12 @@ textarea.form-control { resize: vertical; min-height: 80px; }
     .stat-icon { width: 40px; height: 40px; font-size: 18px; border-radius: 12px; }
     .stat-info h3 { font-size: 18px; }
     .stat-info p { font-size: 11px; }
+    .stat-change { font-size: 10px; flex-wrap: wrap; }
 
     /* Fee summary 2-col on small screens */
     .fee-summary { grid-template-columns: 1fr 1fr; gap: 8px; }
+    .fee-card .fee-amount { font-size: 20px; }
+    .fee-card .fee-label { font-size: 11px; }
 
     /* Timetable — horizontal scroll */
     .timetable-grid {
@@ -877,7 +895,9 @@ textarea.form-control { resize: vertical; min-height: 80px; }
     }
 
     /* Tables horizontal scroll */
-    .table-container { margin: 0 -12px; padding: 0 12px; }
+    .table-container { margin: 0 -12px; padding: 0 12px; overflow-x: auto; -webkit-overflow-scrolling: touch; }
+    table { font-size: 13px; }
+    table th, table td { padding: 8px 10px; white-space: nowrap; }
 
     /* Toolbar stacking */
     .toolbar { flex-direction: column; align-items: stretch; }
@@ -886,7 +906,7 @@ textarea.form-control { resize: vertical; min-height: 80px; }
     .toolbar .btn { width: 100%; }
 
     /* Card header wrapping */
-    .card-header { flex-wrap: wrap; gap: 8px; }
+    .card-header { flex-wrap: wrap; gap: 8px; padding: 12px; }
     .card-header h2 { font-size: 14px; }
 
     /* Form rows single column */
@@ -898,6 +918,22 @@ textarea.form-control { resize: vertical; min-height: 80px; }
 
     /* Toast full width */
     .toast-container { left: 8px; right: 8px; }
+
+    /* Search field mobile */
+    .search-field input { min-width: 0; flex: 1; font-size: 13px; }
+
+    /* Drawer text truncation */
+    .drawer-item { font-size: 14px; padding: 12px 16px; }
+
+    /* Book grid single column */
+    .book-grid { grid-template-columns: 1fr; }
+
+    /* Attendance grid tighter */
+    .attendance-grid { grid-template-columns: repeat(auto-fill, minmax(100px, 1fr)); gap: 6px; }
+
+    /* Calendar day smaller */
+    .calendar-day { min-height: 44px; padding: 4px; font-size: 12px; }
+    .calendar-day-header { padding: 6px 2px; font-size: 10px; }
 }
 
 @media (min-width: 481px) and (max-width: 767px) {
