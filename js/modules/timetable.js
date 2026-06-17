@@ -257,10 +257,11 @@ function renderMiniTimetable(timetable, teachers, selectedDay) {
 
         TIMETABLE_TIMES.forEach((time, periodIdx) => {
             const entry = timetable.find(t => t.day === day && t.periodIndex === periodIdx);
+            const teacher = entry ? teachers.find(te => te.id === entry.teacherId) : null;
             const cellClass = isToday ? 'timetable-cell today-cell' : 'timetable-cell';
             html += `<div class="${cellClass}" style="padding:4px;min-height:40px;">
                 <div class="subject" style="font-size:11px;">${sanitize(entry ? entry.subject.substring(0, 10) : '—')}</div>
-                ${entry ? `<div class="teacher-name" style="font-size:9px;">${sanitize(teacher ? teachers.find(te => te.id === entry.teacherId)?.firstName?.charAt(0) + '.' : '')}</div>` : ''}
+                ${teacher ? `<div class="teacher-name" style="font-size:9px;">${sanitize(teacher.firstName.charAt(0) + '.')}</div>` : ''}
             </div>`;
         });
     });
